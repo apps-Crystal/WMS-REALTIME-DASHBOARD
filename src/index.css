@@ -1,0 +1,204 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap');
+
+:root {
+  --primary: #4fecff;
+  --secondary: #9d00ff;
+  --accent: #ff007a;
+  --bg-dark: #0a0a0a;
+  --bg-card: #141414;
+  --text-main: #ffffff;
+  --text-muted: #a1a1a1;
+  --glass: rgba(255, 255, 255, 0.05);
+  --glass-border: rgba(255, 255, 255, 0.1);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Outfit', sans-serif;
+  background-color: var(--bg-dark);
+  color: var(--text-main);
+  overflow-x: hidden;
+  min-height: 100vh;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+  /* For horizontal scroll */
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-dark);
+}
+
+::-webkit-scrollbar-thumb {
+  background: #333;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+/* Utilities */
+.glass-panel {
+  background: var(--glass);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid var(--glass-border);
+  border-radius: 16px;
+}
+
+.gradient-text {
+  background: linear-gradient(135deg, var(--primary), var(--secondary));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.page-container {
+  width: 100%;
+  min-height: 100vh;
+  position: relative;
+}
+
+/* --- RESPONSIVE HELPERS --- */
+
+/* Dashboard Layout */
+.dashboard-container {
+  padding: 2rem;
+  max-width: 1800px;
+  /* Increased from 1400px for larger screens */
+  margin: 0 auto;
+}
+
+.dashboard-header {
+  margin-bottom: 3rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.dashboard-tabs {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  /* Larger min-width for big screens */
+  gap: 2rem;
+  margin-bottom: 4rem;
+}
+
+/* Enhancements for Ultrawide / Very Large Screens */
+@media (min-width: 1600px) {
+  .dashboard-container {
+    max-width: 90%;
+    /* Let it breath on ultrawide */
+  }
+
+  .stats-grid {
+    grid-template-columns: repeat(4, 1fr);
+    /* Force 4 columns on large screens for better symmetry */
+  }
+
+  h1 {
+    font-size: 2.5rem !important;
+  }
+}
+
+/* Mobile / Tablet Overrides */
+@media (max-width: 768px) {
+  .dashboard-container {
+    padding: 1rem;
+  }
+
+  .dashboard-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1.5rem;
+  }
+
+  .dashboard-header>div {
+    width: 100%;
+    /* justify-content: space-between if needed */
+  }
+
+  /* User profile on mobile: make it align left or full width */
+  .dashboard-header .user-profile {
+    text-align: left;
+    width: 100%;
+    justify-content: flex-start;
+  }
+
+  .dashboard-tabs {
+    gap: 0.5rem;
+    overflow-x: auto;
+    flex-wrap: nowrap;
+    /* Horizontal scroll for tabs is often better on mobile */
+    padding-bottom: 0.5rem;
+    justify-content: flex-start;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .dashboard-tabs button {
+    flex-shrink: 0;
+    padding: 0.6rem 1.2rem;
+    font-size: 0.9rem;
+  }
+
+  .stats-grid {
+    grid-template-columns: 1fr;
+    /* Stack cards */
+    gap: 1rem;
+  }
+
+  /* Adjust stat card size if stacking */
+  .glass-panel {
+    border-radius: 12px;
+  }
+}
+
+/* Global Back to Top Button */
+.back-to-top-button {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: var(--primary);
+  color: #000;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 20px rgba(0, 255, 127, 0.4), 0 0 10px rgba(0, 255, 127, 0.2);
+  z-index: 10000;
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.back-to-top-button:hover {
+  transform: translateY(-5px) scale(1.1);
+  box-shadow: 0 8px 30px rgba(0, 255, 127, 0.6), 0 0 20px rgba(0, 255, 127, 0.3);
+}
+
+.back-to-top-button:active {
+  transform: translateY(0) scale(0.9);
+}
